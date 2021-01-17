@@ -5,13 +5,13 @@ import csv
 pyPollpath = os.path.join('Resources','election_data.csv')
 
 #create outpot path
-pyPolloutput = os.path.join('Analysis', 'PyPollAnalysis.txt')
+pyPolloutput = os.path.join('Analysis','PyPollAnalysis.txt')
 
 #set variables for calculations,set winner as a string
 Total_Votes = 0
 Candidate = []
 Candidate_Votes = {}
-Winner = ""
+Winner = ''
 WinningCount = 0
 
 
@@ -38,40 +38,51 @@ with open(pyPollpath,'r') as csvfile:
         Candidate_Votes[Candidate_Name] +=1
 
 
-    #print election results
-    #print(ElectionResults)
-    #txtfile.write(ElectionResults)     
+#print election results
+#ith open(pyPolloutput, 'w') as txtfile:
+    #Election_Results = (
+        #'Election Results \n',
+        #'------------------------- \n'
+        #f'Total Votes: {Total_Votes} \n'
+        #'------------------------- \n'
+    #)
+    #print(Election_Results)
+    #txtfile.write(Election_Results)
 
-    #calculate votes for each candidate
-    for candidate in Candidate_Votes:
-        Votes = Candidate_Votes.get(Candidate)
-        Percentage_Votes = round(((Votes / Total_Votes) *100), 3)
-        Candidate_Results = f'{candidate}: {Percentage_Votes}% ({Votes}) \n'
-        print (Candidate_Results)
-        txtfile.write(CandidateOutput)
+    #show vote count per candidate
+    for Candidate_Name in Candidate_Votes:
+        Votes = Candidate_Votes.get(Candidate_Name)
+        Vote_Percentage =round(((Votes / Total_Votes) * 100), 3)
+        #Candidate = f"{Candidate}: {Vote_Percentage}% ({Votes}) \n"
 
-        #figure out winner
+        #print(Candidate_Name)
+        #txtfile.write(Candidate_Name)
+        
+        #determine winner
         if Votes > WinningCount:
-           WinningCount = Votes
-           Winner = candidate
-    
+            WinningCount = Candidate_Votes
+            Winner = Candidate_Name
 
-# create output
+    #print winning data
+    #WinningResults = (
+        #'-------------------------- \n'
+        #f"Winner: {Winner} \n"
+        #'-------------------------- \n'
+    #)        
+    #print(WinningResults)
+    #txtfile.write(WinningResults)
+
+#create output
 output = (
-    
+    'Election Results \n'
+    '----------------------------------------------'
+    f'Total Votes: {Total_Votes} \n'
+    '---------------------------------------------- \n'
+    f'{Candidate}: {Vote_Percentage}% ({Votes}) \n'
+    '---------------------------------------------- \n'
+    f'Winner: {Winner} \n'
+    '---------------------------------------------- \n'
 )
-    #show results
-with open(pyPollpath, 'w') as txtfile:
-    ElectionResults =(
-        'Election Results \n'
-        '------------------------------- \n'
-        f'Total Votes: {Total_Votes} \n'
-        '------------------------------- \n'
-    Winning_Results = (
-        '------------------------------------- \n'
-        f'Winner: {Winner} \n'
-        '------------------------------------- \n'
-    )
-
-    print(Winning_Results)
-    txtfile.write(Winning_Results)
+#print(output)
+with open (pyPolloutput, 'w') as txtFile:
+    txtFile.write(output)
