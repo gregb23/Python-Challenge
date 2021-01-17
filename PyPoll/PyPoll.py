@@ -51,22 +51,23 @@ with open(pyPolloutput, 'w') as txtfile:
 
     #show vote count per candidate
     for Candidate_Name in Candidate_Votes:
-        Candidate_Name = Candidate_Votes.get(Candidate_Name)
-        Vote_Percentage =((Candidate_Votes/Total_Votes) * 100)
-        Candidate = f"{Candidate}: {Vote_Percentage}% ({Candidate_Votes}) \n"
+        Votes = Candidate_Votes.get(Candidate_Name)
+        Vote_Percentage =round(((Votes / Total_Votes) * 100) ,3)
+        CandidateOutput = f'{Candidate_Name}: {Vote_Percentage}% ({Votes}) \n'
+    
 
-        print(Candidate_Name)
-        txtfile.write(Candidate_Name)
+        print(CandidateOutput)
+        txtfile.write(CandidateOutput)
         
         #determine winner
-        if Candidate_Votes > WinningCount:
-            WinningCount = Candidate_Votes
+        if Votes > WinningCount:
+            WinningCount = Votes
             Winner = Candidate_Name
 
     #print winning data
     WinningResults = (
         '-------------------------- \n'
-        f"Winner: {Winner} \n"
+        f'Winner: {Winner} \n'
         '-------------------------- \n'
     )        
     print(WinningResults)
